@@ -1,6 +1,8 @@
 #ifndef MEL_VAR_TABLE_HPP
 #define MEL_VAR_TABLE_HPP
 
+#include "./parser_state.hpp"
+
 // We must use MRI's xfree for ALLOC'd memory.
 #ifdef RUBINIUS
 #undef xfree
@@ -19,6 +21,7 @@ namespace MELBOURNE {
     struct vtable *args;
     struct vtable *vars;
     struct local_vars *prev;
+    VALUE cmdargs;
   };
 
   int vtable_size(const struct vtable* tbl);

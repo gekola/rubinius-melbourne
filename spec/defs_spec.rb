@@ -70,4 +70,19 @@ describe "A Defs node" do
      [:lasgn, :x, [:str, "a"]],
      [:defs, [:lvar, :x], :m, [:args, :a], [:scope, [:block, [:lvar, :a]]]]]
   end
+
+  parse <<-ruby do
+      foo def bar
+        self.each do
+	end
+      end
+    ruby
+
+    [:call, nil, :foo,
+     [:arglist,
+      [:defn, :bar, [:args],
+       [:scope,
+	[:block,
+	 [:call, [:self], :each, [:arglist, [:iter, [:args], [:nil]]]]]]]]]
+  end
 end

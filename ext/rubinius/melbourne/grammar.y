@@ -6983,6 +6983,8 @@ parser_local_push(rb_parser_state* parser_state, int top)
   local->prev = locals_table;
   local->args = vtable_alloc(0);
   local->vars = vtable_alloc(0);
+  local->cmdargs = cmdarg_stack;
+  cmdarg_stack = 0;
   locals_table = local;
 }
 
@@ -6992,6 +6994,7 @@ parser_local_pop(rb_parser_state* parser_state)
   struct local_vars *local = locals_table->prev;
   vtable_free(locals_table->args);
   vtable_free(locals_table->vars);
+  cmdarg_stack = locals_table->cmdargs;
   xfree(locals_table);
   locals_table = local;
 }
